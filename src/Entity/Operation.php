@@ -37,6 +37,12 @@ class Operation
      */
     private $label;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Account::class, inversedBy="operations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $account;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +92,18 @@ class Operation
     public function setLabel(string $label): self
     {
         $this->label = $label;
+
+        return $this;
+    }
+
+    public function getAccount(): ?Account
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?Account $account): self
+    {
+        $this->account = $account;
 
         return $this;
     }
