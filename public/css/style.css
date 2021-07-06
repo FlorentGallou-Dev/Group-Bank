@@ -7,7 +7,6 @@
 /*~~~~~ HEADING TEXTS ~~~~~*/
 h1, h2, h3, h4, h6 {
     font-family: 'Poiret One', cursive;
-    font-size: 8em;
 }
 body, p, span, a, li, figcaption, label, input {
     font-family: 'Nanum Gothic', sans-serif;
@@ -36,7 +35,6 @@ body, p, span, a, li, figcaption, label, input {
 
 a:hover{
     color: #fff !important;
-    font-weight: bold;
 }
 
 /*~~~~~ BUTTONS STYLE ~~~~~*/
@@ -53,8 +51,8 @@ a:hover{
 }
 
 /*~~~~~ BACKGROUNDS BORDERS ~~~~~*/
-.bg-header{
-    background: var(--dark);
+.bg-header,.bg-nav{
+    background: #1c1f23;
 }
 
 .bg-sombre{
@@ -154,17 +152,24 @@ a:hover{
     color: var(--gold);
 }
 
+/*~~~~~ FOOTER STYLE ~~~~~*/
+footer .list-group-item, footer .nav-link{
+    border: none;
+    text-align: center;
+    padding: 0;
+}
+
 /*~~~~~ TOUCHPADS VIEWPORT ~~~~~*/
 @media screen and (min-width: 576px ) {
-    .bg-header{
-        background: #fff;
+    .bg-nav{
+        background: var(--dark);
     }
 }
 
 /*~~~~~ DESKTOP VIEWPORT ~~~~~*/
 @media screen and (min-width: 1400px ) {
     .bg-header{
-        background: url(../img/gringotts-front-2.jpg);
+        background: url(/img/group-bank-front.jpg);
         background-attachment: fixed;
         background-size: contain;
     }

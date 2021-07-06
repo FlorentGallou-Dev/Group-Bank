@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group Bank - NOM COMPTE{% endblock %} {# intégrer intitulé du compte #}
+
+{% block body %}
+    <div class="row">
+        <article class="container col-12 row mx-auto" id="accountContainer">
+            <div class="col-12 mx-auto">
+                <div class="card mx-1">
+                    <div class="row card-body justify-content-center align-items-center text-center bg-sombre">
+                        <div class="col-sm-4 vh-2">
+                            <img class="img-fluid" src="{{ asset('img/gg-key.png') }}" alt="Key to Group bank">
+                        </div>
+                        <div class="row col-sm-8 align-items-center">
+                            <div class="col-sm-6">
+                                <h1 class="card-title color-gold m-0">INTITULE DU COMPTE</h1> <!-- intégrer intitulé du compte -->
+                            </div>
+                            <div class="col-sm-6">
+                                <p class="card-text m-0 text-white">N° 0215423412</p> <!-- intégrer numéro du compte -->
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush borderGold">
+                        <li class="list-group-item owner">Date de création : 24/12/1945</li> <!-- intégrer date de création du compte -->
+                        <li class="list-group-item owner borderGrey">Solde : 1 203 625 Simflouz</li> <!-- intégrer solde du compte -->
+                        <h3 class="text-center my-3">Opérations</h3>
+                        <!-- php foreach($singleAccount as $account): ?>                   créer boucle pour la liste des mouvements -->
+                            <li class="list-group-item balance"> ===> Le 14/03/1985 : INTITULE MOUVEMENT = 203 SF</li> <!-- intégrer date - intitulé - montant du mouvement -->
+
+                            <!-- \/ à supprimer quand il y aura la boucle \/ -->
+                                <li class="list-group-item balance"> ===> Le 24/03/1945 : INTITULE MOUVEMENT = 1 521 SF</li>
+                                <li class="list-group-item balance"> ===> Le 03/08/1921 : INTITULE MOUVEMENT = 12 302 SF</li>
+                                <li class="list-group-item balance"> ===> Le 25/03/1965 : INTITULE MOUVEMENT = 846 SF</li>
+                                <li class="list-group-item balance"> ===> Le 08/04/1985 : INTITULE MOUVEMENT = 2 635 SF</li>
+                                <li class="list-group-item balance"> ===> Le 07/03/1976 : INTITULE MOUVEMENT = 45 210 SF</li>
+                                <li class="list-group-item balance"> ===> Le 12/12/1995 : INTITULE MOUVEMENT = 20 321 SF</li>
+                                <li class="list-group-item balance"> ===> Le 19/08/1952 : INTITULE MOUVEMENT = 123 0254 SF</li>
+                                <li class="list-group-item balance"> ===> Le 30/02/1985 : INTITULE MOUVEMENT = 10 SF</li>
+                            <!-- /\ à supprimer quand il y aura la boucle /\-->
+                            
+                        <!-- php endforeach ?> -->
+                    </ul>
+                    <div class="card-body text-center bg-sombre">
+                        <a href="{{ path("closeAccountPage") }}" class="btn btn-gold mx-1">Clore</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
+                        <a href="{{ path("depositWithdrawalPage") }}" class="btn btn-gold mx-1">Dépot</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
+                        <a href="{{ path("depositWithdrawalPage") }}" class="btn btn-gold mx-1">Retrait</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

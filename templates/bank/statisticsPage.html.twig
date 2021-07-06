@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group Bank - Statistiques{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <h1 class="color-sombre col-12 mb-5">Voici les informations pratiques fournies par Group GBank</h1>
+            <section class="container col-10 row mx-auto">
+                <table class="table table-sombre table-striped text-center">
+                    <thead>
+                        <tr>
+                            <th scope="col">Monnaie</th>
+                            <th scope="col">Unité</th>
+                            <th scope="col">Taux</th>
+                        </tr>
+                    </thead>
+                    <tbody id="statsContainer">
+                        <!-- inserer les données des statistiques -->
+                    </tbody>
+                </table>
+            </section>
+        </div>
+{% endblock %}
