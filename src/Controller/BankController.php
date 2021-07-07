@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\Account;
+use App\Entity\User;
+use App\Entity\Operation;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -18,7 +21,12 @@ class BankController extends AbstractController
     //#[Route('/account/my_accounts', name: 'accountsList')]
     public function accountsList(): Response
     {
+        $accounts = $this->getUser()->getAccounts();
+        // $operationRepository = $this->getDoctrine()->getRepository(Operation::class);
+        // $operation = $operationRepository->findOneBy(array('id' => ));
         return $this->render('bank/accountsList.html.twig', [
+            "accounts" => $accounts,
+            // "operation" => $operation
         ]);
     }
 
