@@ -31,10 +31,16 @@ class BankController extends AbstractController
     }
 
     //PAGE D'AFFICHAGE D'UN SEUL COMPTE
-    #[Route('/account/single', name: 'singleAccount')]
-    public function singleAccount(): Response
-    {
+    #[Route('/account/single/{id}', name: 'singleAccount')]
+    public function singleAccount(int $id): Response
+    {   
+        // $operationRepository = $this->getDoctrine()->getRepository(Operation::class);
+        // $operations = $operationRepository->find($id);
+        $accountRepository = $this->getDoctrine()->getRepository(Account::class);
+        $account = $accountRepository->find($id);
+        dump($account);
         return $this->render('bank/singleAccount.html.twig', [
+            "account" => $account
         ]);
     }
     
