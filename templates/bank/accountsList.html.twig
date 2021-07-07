@@ -19,7 +19,7 @@
                             <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : </li> <!-- intégrer titre dernière opération et montant -->
                         </ul>
                         <div class='card-body text-center'>
-                            <a href='{{ path('singleAccount') }}' class='btn btn-gold'>Consulter</a> <!-- générer lien vers compte seul -->
+                            <a href='{{ path('singleAccount', {id: account.id}) }}' class='btn btn-gold'>Consulter</a> <!-- générer lien vers compte seul -->
                         </div>
                     </div>
                 </div>

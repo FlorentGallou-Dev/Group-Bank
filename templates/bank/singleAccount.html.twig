@@ -16,29 +16,19 @@
                                 <h1 class="card-title color-gold m-0">INTITULE DU COMPTE</h1> <!-- intégrer intitulé du compte -->
                             </div>
                             <div class="col-sm-6">
-                                <p class="card-text m-0 text-white">N° 0215423412</p> <!-- intégrer numéro du compte -->
+                                <p class="card-text m-0 text-white">N° {{account.id}}</p> <!-- intégrer numéro du compte -->
                             </div>
                         </div>
                     </div>
                     <ul class="list-group list-group-flush borderGold">
-                        <li class="list-group-item owner">Date de création : 24/12/1945</li> <!-- intégrer date de création du compte -->
-                        <li class="list-group-item owner borderGrey">Solde : 1 203 625 Simflouz</li> <!-- intégrer solde du compte -->
+                        <li class="list-group-item owner">Date de création : {{account.openingdate|date('d/m/Y')}}</li> <!-- intégrer date de création du compte -->
+                        <li class="list-group-item owner borderGrey">Solde : {{account.amount}} Simflouz</li> <!-- intégrer solde du compte -->
                         <h3 class="text-center my-3">Opérations</h3>
-                        <!-- php foreach($singleAccount as $account): ?>                   créer boucle pour la liste des mouvements -->
-                            <li class="list-group-item balance"> ===> Le 14/03/1985 : INTITULE MOUVEMENT = 203 SF</li> <!-- intégrer date - intitulé - montant du mouvement -->
-
-                            <!-- \/ à supprimer quand il y aura la boucle \/ -->
-                                <li class="list-group-item balance"> ===> Le 24/03/1945 : INTITULE MOUVEMENT = 1 521 SF</li>
-                                <li class="list-group-item balance"> ===> Le 03/08/1921 : INTITULE MOUVEMENT = 12 302 SF</li>
-                                <li class="list-group-item balance"> ===> Le 25/03/1965 : INTITULE MOUVEMENT = 846 SF</li>
-                                <li class="list-group-item balance"> ===> Le 08/04/1985 : INTITULE MOUVEMENT = 2 635 SF</li>
-                                <li class="list-group-item balance"> ===> Le 07/03/1976 : INTITULE MOUVEMENT = 45 210 SF</li>
-                                <li class="list-group-item balance"> ===> Le 12/12/1995 : INTITULE MOUVEMENT = 20 321 SF</li>
-                                <li class="list-group-item balance"> ===> Le 19/08/1952 : INTITULE MOUVEMENT = 123 0254 SF</li>
-                                <li class="list-group-item balance"> ===> Le 30/02/1985 : INTITULE MOUVEMENT = 10 SF</li>
-                            <!-- /\ à supprimer quand il y aura la boucle /\-->
-                            
-                        <!-- php endforeach ?> -->
+                            {% if account.operations is not empty %}
+                                {% for operation in account.operations %}
+                                <li class="list-group-item balance"> ===> Le {{operation.registered|date('d/m/Y')}} à {{operation.registered|date('H:i')}} : {{operation.label}} = {{operation.operationamount}} SF</li> <!-- intégrer date - intitulé - montant du mouvement -->
+                                {% endfor %}
+                            {% endif %}
                     </ul>
                     <div class="card-body text-center bg-sombre">
                         <a href="{{ path("closeAccountPage") }}" class="btn btn-gold mx-1">Clore</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
