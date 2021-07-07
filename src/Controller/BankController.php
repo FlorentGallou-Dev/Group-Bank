@@ -2,8 +2,19 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+
+use App\Entity\Account;
+use App\Form\AccountType;
+use App\Repository\AccountRepository;
+
+use App\Entity\Operation;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -21,7 +32,7 @@ class BankController extends AbstractController
         return $this->render('bank/accountsList.html.twig', [
         ]);
     }
-
+    
     //PAGE D'AFFICHAGE D'UN SEUL COMPTE
     #[Route('/account/single', name: 'singleAccount')]
     public function singleAccount(): Response
@@ -32,9 +43,21 @@ class BankController extends AbstractController
     
     //PAGE D'AJOUT D'UN NOUVEAU COMPTE
     #[Route('/account/new_account', name: 'addAccountPage')]
-    public function addAccountPage(): Response
+    public function addAccountPage(Request $request): Response
     {
+        $account = new Account();
+        $form = $this->createForm(AccountType::class, $account);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $account->setOpeningDate(new \DateTime());
+            $account->setUser($this->getUser());
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($account);
+            $entityManager->flush();
+            return $this->redirectToRoute('accountsList');
+        }
         return $this->render('bank/addAccountPage.html.twig', [
+            'form' => $form->createView(),
         ]);
     }
 
