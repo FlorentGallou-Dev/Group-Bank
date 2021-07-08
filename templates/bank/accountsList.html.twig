@@ -5,6 +5,14 @@
 {% block body %}
     <div class="row">
             <h1 class="color-sombre col-12 mb-5">Vos comptes bancaires</h1>
+            {# read and display all flash messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
             <section class="container col-12 row mx-auto" id="accountsContainer">
                 {% for account in accounts %}
                 <div class='col-12 col-lg-4 my-3 mx-auto'>

@@ -47,4 +47,15 @@ class AccountRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAccount(int $id){
+
+        return $this->createQueryBuilder('a')
+            ->Where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+    }
 }

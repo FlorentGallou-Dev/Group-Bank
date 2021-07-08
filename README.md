@@ -9,4 +9,9 @@
 > 3. User, Account, Operation entities created and linked with foreinkeys dependencies,
 > 4. Security and Fixures created,
 > 5. Templates and pages created,
+> 6. Display of user bank accounts list on home page check,
+> 7. New account form check,
+> 8. Register a new customer check,
+> 9. Security on single bank account page check,
+> 10. Delete abank account check,
 -----
