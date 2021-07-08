@@ -3,12 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Repository\UserRepository;
 
 use App\Entity\Account;
 use App\Form\AccountType;
 use App\Repository\AccountRepository;
 
 use App\Entity\Operation;
+use App\Repository\OperationRepository;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -46,9 +48,9 @@ class BankController extends AbstractController
         // $operations = $operationRepository->find($id);
         $accountRepository = $this->getDoctrine()->getRepository(Account::class);
         $account = $accountRepository->find($id);
-        dump($account);
+
         return $this->render('bank/singleAccount.html.twig', [
-            "account" => $account
+            "account" => $account,
         ]);
     }
     
@@ -73,11 +75,20 @@ class BankController extends AbstractController
     }
 
     //PAGE DE CLOTURE DE COMPTE
-    #[Route('/account/close_account', name: 'closeAccountPage')]
-    public function closeAccountPage(): Response
+    #[Route('/account/close_account/{id}', name: 'closeAccountPage', requirements: ['id' => '\d+'])]
+    public function closeAccountPage(int $id, AccountRepository $accountRepository ,Request $request): Response
     {
-        return $this->render('bank/closeAccountPage.html.twig', [
-        ]);
+        $account = $accountRepository->getAccount($id);
+
+        $removeRequest = $this->getDoctrine()->getManager();
+        $this->addFlash(
+            'success',
+            "Votre compte a bien été supprimé"
+        );
+        $removeRequest->remove($account);
+        $removeRequest->flush();
+
+        return $this->redirectToRoute('accountsList');
     }
 
     //PAGE D'OPERATION DEPOT/RETRAIT
