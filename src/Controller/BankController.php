@@ -20,6 +20,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * @IsGranted("IS_AUTHENTICATED_FULLY")
@@ -32,11 +34,8 @@ class BankController extends AbstractController
     public function accountsList(): Response
     {
         $accounts = $this->getUser()->getAccounts();
-        // $operationRepository = $this->getDoctrine()->getRepository(Operation::class);
-        // $operation = $operationRepository->findOneBy(array('id' => ));
         return $this->render('bank/accountsList.html.twig', [
             "accounts" => $accounts,
-            // "operation" => $operation
         ]);
     }
     
@@ -44,14 +43,17 @@ class BankController extends AbstractController
     #[Route('/account/single/{id}', name: 'singleAccount')]
     public function singleAccount(int $id): Response
     {   
-        // $operationRepository = $this->getDoctrine()->getRepository(Operation::class);
-        // $operations = $operationRepository->find($id);
         $accountRepository = $this->getDoctrine()->getRepository(Account::class);
         $account = $accountRepository->find($id);
-
-        return $this->render('bank/singleAccount.html.twig', [
-            "account" => $account,
-        ]);
+        // To make sure User can see only his account.
+        if ($account->getUser() === $this->getUser()) {
+            return $this->render('bank/singleAccount.html.twig', [
+                "account" => $account
+            ]);
+        }
+        else {
+            return $this->redirectToRoute('accountsList');
+        }
     }
     
     //PAGE D'AJOUT D'UN NOUVEAU COMPTE
