@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Group Bank - NOM COMPTE{% endblock %} {# intégrer intitulé du compte #}
+{% block title %}Group Bank - {{account.accountType}}{% endblock %} {# intégrer intitulé du compte #}
 
 {% block body %}
     <div class="row">
@@ -13,7 +13,7 @@
                         </div>
                         <div class="row col-sm-8 align-items-center">
                             <div class="col-sm-6">
-                                <h1 class="card-title color-gold m-0">INTITULE DU COMPTE</h1> <!-- intégrer intitulé du compte -->
+                                <h1 class="card-title color-gold m-0">{{account.accountType}}</h1> <!-- intégrer intitulé du compte -->
                             </div>
                             <div class="col-sm-6">
                                 <p class="card-text m-0 text-white">N° {{account.id}}</p> <!-- intégrer numéro du compte -->
