@@ -73,16 +73,24 @@ class BankController extends AbstractController
     #[Route('/account/close_account/{id}', name: 'closeAccountPage', requirements: ['id' => '\d+'])]
     public function closeAccountPage(int $id, AccountRepository $accountRepository ,Request $request): Response
     {
-        $account = $accountRepository->getAccount($id);
+        $user = $this->getUser()->getId();
+        $account = $accountRepository->findOneBy(array('id' => $id, 'user' => $user));
         
-        $removeRequest = $this->getDoctrine()->getManager();
+        if ($account) {
+            $removeRequest = $this->getDoctrine()->getManager();
         $this->addFlash(
             'success',
             "Votre compte a bien été supprimé"
         );
         $removeRequest->remove($account);
         $removeRequest->flush();
-
+        }
+        elseif(!$account) {
+            $this->addFlash(
+                'danger',
+                "N'essayez pas de supprimer les comptes des autres"
+            );
+        }
         return $this->redirectToRoute('accountsList');
     }
 
@@ -132,9 +140,9 @@ class BankController extends AbstractController
                 'ope' => $ope,
             ]);
         }
-        else {
-            return $this->redirectToRoute('accountsList');
-        }
+
+        return $this->redirectToRoute('accountsList');
+        
         
     }
 
