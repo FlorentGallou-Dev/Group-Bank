@@ -14,30 +14,19 @@ class OperationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            // ->add('account', null, [
-            //     "label" => "Choisissez votre compte",
-            // ])
-            ->add('account', ChoiceType::class, [
-                'choices' => [
-                    'Compte courant' => 1,
-                    'Livret A' => 2,
-                    'PEL' => 3,
-                ]])
-            // ->add('operation_type', null, [
-            //     "label" => "Type d'opétation",
-            // ])
-            ->add('operationType', ChoiceType::class, [
-                'choices' => [
-                    'Dépôt' => 1,
-                    'Retrait' => 2,
-                ]])
+        
+            ->add('label', null, [
+                "label" => "Intitulé de l'opération",
+                "attr" => ["class" => "mx-3"],
+            ])
             ->add('operation_amount', null, [
                 "label" => "Montant en euros",
+                "attr" => ["class" => "mx-3"],
             ])
 
             ->add('enregistrer', SubmitType::class, [
-                "attr" => ["class" => "bg-danger text-white"],
-                'row_attr' => ['class' => 'text-center']
+                "attr" => ["class" => "btn btn-gold mt-3"],
+                'row_attr' => ['class' => 'text-start']
             ])
         ;
     }

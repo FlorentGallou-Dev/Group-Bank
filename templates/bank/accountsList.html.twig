@@ -6,61 +6,24 @@
     <div class="row">
             <h1 class="color-sombre col-12 mb-5">Vos comptes bancaires</h1>
             <section class="container col-12 row mx-auto" id="accountsContainer">
-                <!-- php foreach($accounts as $account): ?>                                     générer boucle ne garder qu'un des templates pour la boucle -->
-                    <!-- début du template à répéter-->
-                    <div class='col-12 col-lg-4 my-3 mx-auto'>
-                        <div class='card mx-1'>
-                            <div class='card-body'>
-                                <h5 class='card-title'>INTITULE DE COMPTE</h5> <!-- intégrer intitulé du compte -->
-                                <p class='card-text'>N° 021325485468225</p> <!-- intégrer numéro de compte -->
-                            </div>
-                            <ul class='list-group list-group-flush'>
-                                <li class='list-group-item owner'> Propriétaire : <strong>ROPRIETAIRE DU COMPTE</strong></li> <!-- intégrer nom du User-->
-                                <li class='list-group-item balance'> Solde : 1 025 302 Simflouz </li> <!-- intégrer solde du compte -->
-                                <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : 20 302 SF</li> <!-- intégrer titre dernière opération et montant -->
-                            </ul>
-                            <div class='card-body text-center'>
-                                <a href='{{ path('singleAccount') }}' class='btn btn-gold'>Consulter</a> <!-- générer lien vers compte seul -->
-                            </div>
+                {% for account in accounts %}
+                <div class='col-12 col-lg-4 my-3 mx-auto'>
+                    <div class='card mx-1'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>{{account.accountType}}</h5> <!-- intégrer intitulé du compte -->
+                            <p class='card-text'>N° {{account.id}}</p> <!-- intégrer numéro de compte -->
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item owner'> Propriétaire : <strong>{{account.user.firstname ~ " " ~ account.user.lastname}}</strong></li> <!-- intégrer nom du User-->
+                            <li class='list-group-item balance'> Solde : {{account.amount}} Simflouz</li> <!-- intégrer solde du compte -->
+                            <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : </li> <!-- intégrer titre dernière opération et montant -->
+                        </ul>
+                        <div class='card-body text-center'>
+                            <a href='{{ path('singleAccount', {id: account.id}) }}' class='btn btn-gold'>Consulter</a> <!-- générer lien vers compte seul -->
                         </div>
                     </div>
-                    <!-- fin du template à répéter-->
-                <!-- php endforeach ?> -->
-
-                        <!-- \/ à supprimer quand il y aura la boucle \/ -->
-                        <div class='col-12 col-lg-4 my-3 mx-auto'>
-                            <div class='card mx-1'>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>INTITULE DE COMPTE</h5>
-                                    <p class='card-text'>N° 325456841</p>
-                                </div>
-                                <ul class='list-group list-group-flush'>
-                                    <li class='list-group-item owner'> Propriétaire : <strong>PROPRIETAIRE DU COMPTE</strong></li>
-                                    <li class='list-group-item balance'> Solde : 23 021 Simflouz </li>
-                                    <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : 23 021 SF</li>
-                                </ul>
-                                <div class='card-body text-center'>
-                                    <a href='{{ path('singleAccount') }}' class='btn btn-gold'>Consulter</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class='col-12 col-lg-4 my-3 mx-auto'>
-                            <div class='card mx-1'>
-                                <div class='card-body'>
-                                    <h5 class='card-title'>INTITULE DE COMPTE</h5>
-                                    <p class='card-text'>N° 021325485468225</p>
-                                </div>
-                                <ul class='list-group list-group-flush'>
-                                    <li class='list-group-item owner'> Propriétaire : <strong>PROPRIETAIRE DU COMPTE</strong></li>
-                                    <li class='list-group-item balance'> Solde : 503 264 Simflouz </li>
-                                    <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : 521 SF</li>
-                                </ul>
-                                <div class='card-body text-center'>
-                                    <a href='{{ path('singleAccount') }}' class='btn btn-gold'>Consulter</a>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- /\ à supprimer quand il y aura la boucle /\-->
+                </div>
+                {% endfor %}
             </section>
         </div>
 {% endblock %}

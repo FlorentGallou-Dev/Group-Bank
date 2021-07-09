@@ -15,23 +15,31 @@ class AccountType extends AbstractType
     {
         $builder
             
-            ->add('accountType', ChoiceType::class, [
-                'choices' => [
-                    'Compte courant' => 1,
-                    'Livret A' => 2,
-                    'PEL' => 3,
-                ]])
+            ->add(
+                'accountType',
+                ChoiceType::class,
+                [
+                    'label' => "Type de comptes",
+                    'choices' => [
+                        'Compte courant' => "Compte courant",
+                        'Livret A' => "Livret A",
+                        'PEL' => "PEL"
+                    ],
+                    "attr" => ["class" => "mx-3"],
+            ])
+            
             ->add('amount', null, [
                 "label" => "Montant",
+                "attr" => ["class" => "mx-3"],
             ])
-
+ 
             ->add('enregistrer', SubmitType::class, [
-                "attr" => ["class" => "bg-danger text-white"],
-                'row_attr' => ['class' => 'text-center']
+                "attr" => ["class" => "btn btn-gold mt-3"],
+                'row_attr' => ['class' => 'text-start']
             ])
         ;
     }
-
+ 
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
