@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\OperationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OperationRepository::class)
@@ -24,6 +25,9 @@ class Operation
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive(
+     *      message = "Attention ce champ ne peut être négatif"
+     * )
      */
     private $operation_amount;
 
