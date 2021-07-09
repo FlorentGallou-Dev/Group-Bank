@@ -7,9 +7,14 @@
                 </button>
                 <div class="collapse navbar-collapse bg-nav px-1 px-sm-0" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <p class="text-light px-lg-3 py-2 m-0">Bonjour -- nom du client --</p> <!-- ajouter attributs firstname et lastname du User -->
-                        </li>
+                        {% if app.user %}
+                            <li class="nav-item">
+                                {# Checking current user "sex" to know how to call them #}
+                                <p class="text-light px-lg-3 py-2 m-0">
+                                    Bonjour, {% if app.user.sex is same as "Male" %} Monsieur {% elseif app.user.sex is same as "Female" %} Madame {% else %} {% endif %}{{app.user.lastname}} {{app.user.firstname}}
+                                </p> <!-- ajouter attributs firstname et lastname du User -->
+                            </li>
+                        {% endif %}
                         <li class="nav-item text-uppercase">
                             <a class="nav-link active" aria-current="page" href="{{ path("accountsList") }}">Mes comptes</a>
                         </li>
@@ -19,9 +24,8 @@
                             </a>
                             <ul class="dropdown-menu bg-sombre" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="{{ path("addAccountPage") }}">Nouveau compte</a></li>
-                                <li><a class="dropdown-item" href="{{ path("closeAccountPage") }}">Cloture</a></li>
-                                {# <li><a class="dropdown-item" href="{{ path("depositWithdrawalPage") }}">Dépot</a></li>
-                                <li><a class="dropdown-item" href="{{ path("depositWithdrawalPage") }}">Retrait</a></li> #}
+                                <li><a class="dropdown-item" href="{{ path("depositWithdrawalPage") }}">Dépot</a></li>
+                                <li><a class="dropdown-item" href="{{ path("depositWithdrawalPage") }}">Retrait</a></li>
                                 <li><a class="dropdown-item" href="{{ path("transferPage") }}">Transfert</a></li>
                             </ul>
                         </li>
