@@ -74,7 +74,7 @@ class BankController extends AbstractController
     public function closeAccountPage(int $id, AccountRepository $accountRepository ,Request $request): Response
     {
         $account = $accountRepository->getAccount($id);
-
+        
         $removeRequest = $this->getDoctrine()->getManager();
         $this->addFlash(
             'success',
@@ -91,43 +91,50 @@ class BankController extends AbstractController
     public function depositWithdrawalPage(int $accountId ,int $depotRetrait,AccountRepository $accountRepository, OperationRepository $operationRepository, Request $request): Response
     {
         $operation = new Operation();
-        $account = $accountRepository->find($accountId);
-        $soldeActuel = $account->getAmount();
+        $user = $this->getUser()->getId();
+        $account = $accountRepository->findOneBy(array('id' => $accountId, 'user' => $user));
         
-        if ($depotRetrait === 1) {
-            $ope = 'dépot';   
-        }
-        elseif($depotRetrait === 2){
-            $ope = 'retrait';
-        }
-
-        $form = $this->createForm(OperationType::class, $operation);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-           $operation->setOperationType($ope);
-           $operation->setRegistered(new \DateTime());
-           $operation->setAccount($account);
-
-           if ($depotRetrait === 1) {
-                $newSolde = $soldeActuel + $operation->getOperationAmount();
+        if ($account) {
+            $soldeActuel = $account->getAmount();
+            if ($depotRetrait === 1) {
+                $ope = 'dépot';   
             }
             elseif($depotRetrait === 2){
-                $newSolde = $soldeActuel - $operation->getOperationAmount();
+                $ope = 'retrait';
             }
 
-            $operation->getAccount()->setAmount($newSolde);
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($operation);
-            $entityManager->flush();
+            $form = $this->createForm(OperationType::class, $operation);
+            $form->handleRequest($request);
+            if ($form->isSubmitted() && $form->isValid()) {
+            $operation->setOperationType($ope);
+            $operation->setRegistered(new \DateTime());
+            $operation->setAccount($account);
 
-            return $this->redirectToRoute('singleAccount', ['id' => $accountId]); 
+            if ($depotRetrait === 1) {
+                    $newSolde = $soldeActuel + $operation->getOperationAmount();
+                }
+                elseif($depotRetrait === 2){
+                    $newSolde = $soldeActuel - $operation->getOperationAmount();
+                }
+
+                $operation->getAccount()->setAmount($newSolde);
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($operation);
+                $entityManager->flush();
+
+                return $this->redirectToRoute('singleAccount', ['id' => $accountId]); 
+            }
+
+            return $this->render('bank/depositWithdrawalPage.html.twig', [
+                'form' => $form->createView(),
+                'account' => $account,
+                'ope' => $ope,
+            ]);
         }
-
-        return $this->render('bank/depositWithdrawalPage.html.twig', [
-            'form' => $form->createView(),
-            'account' => $account,
-            'ope' => $ope,
-        ]);
+        else {
+            return $this->redirectToRoute('accountsList');
+        }
+        
     }
 
     //PAGE D'OPERATION DE TRANSFERT
