@@ -34,7 +34,7 @@
                             {% endif %}
                     </ul>
                     <div class="card-body text-center bg-sombre">
-                        <a href="{{ path("closeAccountPage") }}" class="btn btn-gold mx-1">Clore</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
+                        <a href="{{ path("closeAccountPage", {id: account.id}) }}" class="btn btn-gold mx-1">Clore</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
                         <a href="{{ path("depositWithdrawalPage", {accountId: account.id, depotRetrait: 1} ) }}" class="btn btn-gold mx-1">Dépôt</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
                         <a href="{{ path("depositWithdrawalPage", {accountId: account.id, depotRetrait: 2} ) }}" class="btn btn-gold mx-1">Retrait</a> <!-- passer parametre objet Account selectionné pour auto selectionner le compte dans la liste du formulaire ??? -->
                     </div>
