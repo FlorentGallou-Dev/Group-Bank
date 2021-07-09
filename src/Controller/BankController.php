@@ -94,13 +94,14 @@ class BankController extends AbstractController
         $user = $this->getUser()->getId();
         $account = $accountRepository->findOneBy(array('id' => $accountId, 'user' => $user));
         
+        //To make sure that form for deposit/withdrawal only get shown if it's current user's account and prevent abuse
         if ($account) {
             $soldeActuel = $account->getAmount();
             if ($depotRetrait === 1) {
-                $ope = 'dépot';   
+                $ope = 'credit';   
             }
             elseif($depotRetrait === 2){
-                $ope = 'retrait';
+                $ope = 'debit';
             }
 
             $form = $this->createForm(OperationType::class, $operation);

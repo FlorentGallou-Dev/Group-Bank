@@ -29,7 +29,15 @@
                         <h3 class="text-center my-3">Opérations</h3>
                             {% if account.operations is not empty %}
                                 {% for operation in account.operations %}
-                                <li class="list-group-item balance"> ===> Le {{operation.registered|date('d/m/Y')}} à {{operation.registered|date('H:i')}} : {{operation.label}} = {{operation.operationamount}} SF</li> <!-- intégrer date - intitulé - montant du mouvement -->
+                                <li class="list-group-item balance"> 
+                                    {# To show with colors what type of operation it is (credit or debit) #}
+                                    {% if operation.operationType is same as "debit" %}
+                                    <strong class="text-danger">Débit</strong>
+                                    {% else %} 
+                                    <strong class="text-success">Crédit</strong>
+                                    {% endif %}
+                                    ===> Le {{operation.registered|date('d/m/Y')}} à {{operation.registered|date('H:i')}} : {{operation.label}} = {{operation.operationamount}} SF
+                                </li> <!-- intégrer date - intitulé - montant du mouvement -->
                                 {% endfor %}
                             {% endif %}
                     </ul>
