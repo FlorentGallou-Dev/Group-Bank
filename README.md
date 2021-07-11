@@ -18,3 +18,11 @@
 > 12. Code cleaned and well indented, comments done, fixtures with random sex, account type and operation types, security verify operation types and sex.
 > 13. docs folder and KanBan updated with final documents.
 -----
+## Documents
+-----
+> 1. USECASE - https://florentgallou-dev.github.io/Group-Bank/BankGroupUseCase.html
+> 2. CLASS DIAGRAM - https://florentgallou-dev.github.io/Group-Bank/diagramme_de_classes.PNG
+> 3. WIREFRAMES - https://florentgallou-dev.github.io/Group-Bank/BankSymfonyWireframes.html
+> 4. DATABASE DIAGRAM - https://florentgallou-dev.github.io/Group-Bank/diagramme_des_tables.PNG
+> 5. FUCTIONAL TREE - https://florentgallou-dev.github.io/Group-Bank/BankSymfonyFunctionalTree.html
+> -----
