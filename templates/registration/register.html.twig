@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group Bank - Nouveau compte{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h1 class="color-sombre col-12 mb-5">Plus qu'une étape avant de faire parti de Group Bank</h1>
+        <section class="container col-10 row mx-auto" id="postContainer">
+            <div class="form-group row">
+                {{ form_start(registrationForm) }}
+                <div class="my-custom-class-for-errors">
+                    {{ form_errors(registrationForm) }}
+                </div>
+                <div class="row">       
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.email) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.plainPassword, {label: 'Mot de passe'}) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.lastname) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.firstname) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.sex) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.birthdate) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.city) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.city_code) }}
+                    </div>
+                    <div class="col-12 mb-3">
+                        {{ form_row(registrationForm.agreeTerms, {label: 'Accepter les termes'}) }}
+                    </div>
+                </div>
+            {{ form_end(registrationForm) }}
+            </div>
+        </section>
+    </div>
+{% endblock %}

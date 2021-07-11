@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Group Bank - Vos comptes{% endblock %}
+
+{% block body %}
+    <div class="row">
+            <h1 class="color-sombre col-12 mb-5">Vos comptes bancaires</h1>
+            {# read and display all flash messages #}
+            {% for label, messages in app.flashes %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ label }}" role="alert">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+            <section class="container col-12 row mx-auto" id="accountsContainer">
+                {# Loop to show all curent user's accounts #}
+                {% for account in accounts %}
+                <div class='col-12 col-lg-4 my-3 mx-auto'>
+                    <div class='card mx-1'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>{{ account.accountType|replace({'-': " "}) }}</h5>
+                            <p class='card-text'>N° {{account.id}}</p>
+                        </div>
+                        <ul class='list-group list-group-flush'>
+                            <li class='list-group-item owner'> Propriétaire : <strong>{{account.user.firstname ~ " " ~ account.user.lastname}}</strong></li> <!-- intégrer nom du User-->
+                            <li class='list-group-item balance'> Solde : {{account.amount}} Simflouz</li>
+                            <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : </li> <!-- intégrer titre dernière opération et montant -->
+                        </ul>
+                        <div class='card-body text-center'>
+                            <a href='{{ path('singleAccount', {id: account.id}) }}' class='btn btn-gold'>Consulter</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </section>
+        </div>
+{% endblock %}

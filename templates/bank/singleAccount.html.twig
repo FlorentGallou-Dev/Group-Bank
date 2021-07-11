@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+{# Changing Title with account number (only if account id is correct) #}
+{% block title %}Group Bank - Votre {% if account is not empty %}{{ account.accountType|replace({'-': " "}) }}{% endif %}{% endblock %}
+
+{% block body %}
+    {# To make sure that {{account}} is not empty to avoid a fatal error if User type an account ID that is not his #}
+    {% if account is not empty %}
+        <div class="row">
+            <article class="container col-12 row mx-auto" id="accountContainer">
+                <div class="col-12 mx-auto">
+                    <div class="card mx-1">
+                        <div class="row card-body justify-content-center align-items-center text-center bg-sombre">
+                            <div class="col-sm-4 vh-2">
+                                <img class="img-fluid" src="{{ asset('img/gg-key.png') }}" alt="Key to Group bank">
+                            </div>
+                            <div class="row col-sm-8 align-items-center">
+                                <div class="col-sm-6">
+                                    <h1 class="card-title color-gold m-0">{{ account.accountType|replace({'-': " "}) }}</h1>
+                                </div>
+                                <div class="col-sm-6">
+                                    <p class="card-text m-0 text-white">N° {{account.id}}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <ul class="list-group list-group-flush borderGold">
+                        <li class="list-group-item owner">Date de création : {{account.openingdate|date('d/m/Y')}}</li>
+                        <li class="list-group-item owner borderGrey">Solde : {{account.amount}} Simflouz</li>
+                        <h3 class="text-center my-3">Opérations</h3>
+                            {% if account.operations is not empty %}
+                                {% for operation in account.operations %}
+                                <li class="list-group-item balance"> 
+                                    {# To show with colors what type of operation it is (credit or debit) #}
+                                    {% if operation.operationType is same as "débit" %}
+                                        <strong class="text-danger">{{operation.operationType|capitalize}}</strong>
+                                    {% else %} 
+                                        <strong class="text-success">{{operation.operationType|capitalize}}</strong>
+                                    {% endif %}
+                                    ===> Le {{operation.registered|date('d/m/Y')}} à {{operation.registered|date('H:i')}} : {{operation.label}} = {{operation.operationamount}} SF
+                                </li>
+                                {% endfor %}
+                            {% endif %}
+                    </ul>
+                    <div class="card-body text-center bg-sombre">
+                        <a href="{{ path("closeAccountPage", {id: account.id}) }}" class="btn btn-gold mx-1">Clore</a>
+                        <a href="{{ path("depositWithdrawalPage", {accountId: account.id, depotRetrait: 1} ) }}" class="btn btn-gold mx-1">Dépôt</a>
+                        <a href="{{ path("depositWithdrawalPage", {accountId: account.id, depotRetrait: 2} ) }}" class="btn btn-gold mx-1">Retrait</a>
+                    </div>
+                </div>
+            </article>
+        </div>
+    {# If account is empty (meaning id in URL does not go to current user's account) #}
+    {% else %}
+        <div class="alert alert-danger">
+            <p>Vous tentez d'accéder à un compte ne vous appartenant pas.<br>Les autorités viennent d'être alertés<br>Restez où vous êtes</p>
+        </div>
+    {% endif %}
+{% endblock %}

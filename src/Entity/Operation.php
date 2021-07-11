@@ -4,12 +4,14 @@ namespace App\Entity;
 
 use App\Repository\OperationRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=OperationRepository::class)
  */
 class Operation
 {
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -19,11 +21,15 @@ class Operation
 
     /**
      * @ORM\Column(type="string", length=15)
+     * @Assert\IdenticalTo("débit", "retrait")
      */
     private $operation_type;
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Positive(
+     *      message = "Attention ce champ ne peut être négatif"
+     * )
      */
     private $operation_amount;
 
@@ -34,6 +40,12 @@ class Operation
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 50,
+     *      minMessage = "L'intitulé de votre opération doit contenir au minimum {{ limit }} caractères",
+     *      maxMessage = "L'intitulé de votre opération doit contenir au maximum {{ limit }} caractères"
+     * )
      */
     private $label;
 

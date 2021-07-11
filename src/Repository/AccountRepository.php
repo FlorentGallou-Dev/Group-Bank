@@ -47,4 +47,16 @@ class AccountRepository extends ServiceEntityRepository
         ;
     }
     */
+
+    public function getAccount(int $id){ //homemade query to get only one account
+
+        return $this->createQueryBuilder('a')
+            ->Where('a.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+
+    }
+
 }
