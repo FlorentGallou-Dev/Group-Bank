@@ -11,8 +11,8 @@
                             <li class="nav-item">
                                 {# Checking current user "sex" to know how to call them #}
                                 <p class="text-light px-lg-3 py-2 m-0">
-                                    Bonjour, {% if app.user.sex is same as "Male" %} Monsieur {% elseif app.user.sex is same as "Female" %} Madame {% else %} {% endif %}{{app.user.lastname}} {{app.user.firstname}}
-                                </p> <!-- ajouter attributs firstname et lastname du User -->
+                                    Bonjour, {% if app.user.sex is same as "Homme" %} Monsieur {% elseif app.user.sex is same as "Femme" %} Madame {% else %} {% endif %}{{app.user.lastname}} {{app.user.firstname}}
+                                </p>
                             </li>
                         {% endif %}
                         <li class="nav-item text-uppercase">

@@ -21,9 +21,9 @@ class AccountType extends AbstractType
                 [
                     'label' => "Type de comptes",
                     'choices' => [
-                        'Compte courant' => "Compte courant",
-                        'Livret A' => "Livret A",
-                        'PEL' => "PEL"
+                        'Compte courant' => 'Compte-courant',
+                        'Livret A' => 'Livret-A',
+                        'PEL' => 'PEL'
                     ],
                     "attr" => ["class" => "mx-3"],
             ])

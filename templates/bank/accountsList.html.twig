@@ -19,16 +19,16 @@
                 <div class='col-12 col-lg-4 my-3 mx-auto'>
                     <div class='card mx-1'>
                         <div class='card-body'>
-                            <h5 class='card-title'>{{account.accountType}}</h5> <!-- intégrer intitulé du compte -->
-                            <p class='card-text'>N° {{account.id}}</p> <!-- intégrer numéro de compte -->
+                            <h5 class='card-title'>{{ account.accountType|replace({'-': " "}) }}</h5>
+                            <p class='card-text'>N° {{account.id}}</p>
                         </div>
                         <ul class='list-group list-group-flush'>
                             <li class='list-group-item owner'> Propriétaire : <strong>{{account.user.firstname ~ " " ~ account.user.lastname}}</strong></li> <!-- intégrer nom du User-->
-                            <li class='list-group-item balance'> Solde : {{account.amount}} Simflouz</li> <!-- intégrer solde du compte -->
+                            <li class='list-group-item balance'> Solde : {{account.amount}} Simflouz</li>
                             <li class='list-group-item balance'> Dernière opération : <br/>  => - INTITULE D'OPERATION : </li> <!-- intégrer titre dernière opération et montant -->
                         </ul>
                         <div class='card-body text-center'>
-                            <a href='{{ path('singleAccount', {id: account.id}) }}' class='btn btn-gold'>Consulter</a> <!-- générer lien vers compte seul -->
+                            <a href='{{ path('singleAccount', {id: account.id}) }}' class='btn btn-gold'>Consulter</a>
                         </div>
                     </div>
                 </div>

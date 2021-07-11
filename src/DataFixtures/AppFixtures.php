@@ -31,24 +31,41 @@ class AppFixtures extends Fixture
             $user->setPassword($password);
             $user->setFirstname("Firstname" . $i);
             $user->setLastname("Lastname" . $i);
-            $user->setSex("Male");
+
+            //Setting a random selection in the 3 avalaible genders
+            $genderTypes = array("Homme", "Femme", "Autre");
+            $randomKey = array_rand($genderTypes, 1);
+            $user->setSex($genderTypes[$randomKey]);
+
             $user->setBirthdate(new \DateTime("04/07/1989"));
             $user->setCity("City" . $i);
-            $user->setCityCode("7600" . $i);
+            $user->setCityCode("76000" . $i);
             // Génère un nombre aléatoire de comptes pour l'utilisateur
             for ($j=1; $j < 3; $j++) { 
                 $account = new Account();
-                $account->setAmount(mt_rand(1, 500));
+                $account->setAmount(mt_rand(1, 99999));
                 $account->setOpeningDate(new \DateTime());
-                $account->setAccountType("PEL" . $j);
+
+                //Setting a random selection in the 3 avalaible bank accounts
+                $accountTypes = array('Compte-courant', 'Livret-A', 'PEL');
+                $randomKey = array_rand($accountTypes, 1);
+                $account->setAccountType($accountTypes[$randomKey]);
+
                 $account->setUser($user);
+
                 // Génère des opérations pour chaque compte
                 for ($k=1; $k < 4; $k++) { 
                     $operation = new Operation();
-                    $operation->setOperationType("debit");
-                    $operation->setOperationAmount(mt_rand(1, 100));
+
+                    //Setting a random selection in the 2 avalaible operations types
+                    $operationTypes = array("crédit", "débit");
+                    $randomKey = array_rand($operationTypes, 1);
+                    $operation->setOperationType($operationTypes[$randomKey]);
+
+                    $operation->setOperationAmount(mt_rand(1, 400));
+
                     $operation->setRegistered(new \DateTime());
-                    $operation->setLabel("Random label" . $k);
+                    $operation->setLabel("Random label " . $k);
                     $operation->setAccount($account);
                     $manager->persist($operation);
                 }

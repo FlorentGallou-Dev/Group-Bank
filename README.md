@@ -13,5 +13,8 @@
 > 7. New account form check,
 > 8. Register a new customer check,
 > 9. Security on single bank account page check,
-> 10. Delete abank account check,
+> 10. Delete a bank account check,
+> 11. Operations Deposit Withdrawal check,
+> 12. Code cleaned and well indented, comments done, fixtures with random sex, account type and operation types, security verify operation types and sex.
+> 13. docs folder and KanBan updated with final documents.
 -----
